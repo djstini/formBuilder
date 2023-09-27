@@ -827,8 +827,8 @@ export default class Helpers {
     $('.toggle-form', field).toggleClass('open')
 
     if (animate) {
-      $preview.slideToggle(250)
-      $editPanel.slideToggle(250)
+      $preview.slideToggle(50)
+      $editPanel.slideToggle(50)
     } else {
       $preview.toggle()
       $editPanel.toggle()
@@ -861,7 +861,7 @@ export default class Helpers {
           }
         }
       })
-    }, 300)
+    }, 50)
 
     return field
   }
@@ -888,8 +888,8 @@ export default class Helpers {
     $('.toggle-form', field).toggleClass('open')
 
     if (animate) {
-      $preview.slideToggle(250)
-      $editPanel.slideToggle(250)
+      $preview.slideToggle(50)
+      $editPanel.slideToggle(50)
     } else {
       $preview.toggle()
       $editPanel.toggle()
@@ -1294,8 +1294,8 @@ export default class Helpers {
         const parseResult = _this.tryParseColumnInfo($field[0])
 
         //tmpCleanColumnInfo may be called multiple times, remove previous work to ensure we don't keep appending tmp- to class names
-        $field.attr('class', $field.attr('class').replace('__fb-tmp-col-', 'col-' ))
-        $field.attr('class', $field.attr('class').replace('__fb-tmp-row-', 'row-' ))
+        $field.attr('class', $field.attr('class').replace('__fb-tmp-col-', 'col-'))
+        $field.attr('class', $field.attr('class').replace('__fb-tmp-row-', 'row-'))
         $field.attr('class', $field.attr('class').replace('col-', '__fb-tmp-col-'))
         $field.attr('class', $field.attr('class').replace('row-', '__fb-tmp-row-'))
 
