@@ -5,6 +5,7 @@ import { unique, hyphenCase, markup as m } from './utils'
 import { empty } from './dom'
 import fontConfig from '../fonts/config.json'
 import storageAvailable from 'storage-available'
+import mi18n from 'mi18n'
 
 const css_prefix_text = fontConfig.css_prefix_text
 
@@ -67,6 +68,7 @@ export default class Controls {
 
     // add each control to the interface
     this.controlList = []
+    this.inputSetList = []
     this.allControls = {}
 
     for (let i = 0; i < registeredControls.length; i++) {
@@ -114,6 +116,7 @@ export default class Controls {
           className: `input-set-control input-set-${i}`,
         })
         inputSet.dataset.type = name
+        this.inputSetList.push(name)
         this.controlList.push(name)
         this.allControls[name] = inputSet
       })
@@ -168,6 +171,32 @@ export default class Controls {
       fieldOrder = fieldOrder.filter(type => !opts.disableFields.includes(type))
     }
 
+    fieldOrder.sort((a, b) => {
+      let aTrans = mi18n.get(a)
+      if (typeof aTrans === 'undefined' && !this.inputSetList.includes(a)) {
+        const elem = $(this.allControls[a]).clone()
+        elem.find('.control-icon').remove()
+        aTrans = elem.text()
+      }
+      let bTrans = mi18n.get(b)
+      if (typeof bTrans === 'undefined' && !this.inputSetList.includes(b)) {
+        const elem = $(this.allControls[b]).clone()
+        elem.find('.control-icon').remove()
+        bTrans = elem.text()
+      }
+
+      if (this.inputSetList.includes(a) && this.inputSetList.includes(b)) {
+        return a.localeCompare(b)
+      }
+      if (this.inputSetList.includes(a)) {
+        return 1
+      }
+      if (this.inputSetList.includes(b)) {
+        return -1
+      }
+
+      return aTrans.localeCompare(bTrans)
+    })
     return fieldOrder.filter(Boolean)
   }
 
